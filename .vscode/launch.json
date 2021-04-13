@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-QuanlysachApplication<Quanlysach>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.thanhtrung.QuanlysachApplication",
+            "projectName": "Quanlysach",
+            "args": ""
+        }
+    ]
+}

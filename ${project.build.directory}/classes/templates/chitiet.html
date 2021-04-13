@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+    <nav th:replace="layout :: header"></nav>
+     <div class="container main-content form">
+    	<h1 align="center"><a th:text="${docgia.tenho}"></a></h1>
+    	 <h3 th:text="'Mã độc giả: '+${docgia.madocgia}"></h3>
+    	 <h3 th:text="'Giới Tính:  '+${docgia.gioitinh}"></h3>
+    	 <h3 th:text="'Email:  '+${docgia.email}"></h3>
+    	 <h3 th:text="'Lớp:  '+${docgia.lop}"></h3>
+    	 <h3 th:text="'Ngày sinh:  '+${docgia.ngaysinh}"></h3>
+    	 <h3 th:text="'Số lượng phiếu đã mượn: ' + ${#lists.size(docgia.listPhieumuon)}"></h3>
+    	 
+    	 <table class="table table-bordered table-hover">
+   			<thead>
+				<tr>
+					<th>STT</th>
+					<th>Mã Phiếu</th>
+					<th>Tên phiếu</th>
+					<th>Loại phiếu</th>
+			
+				</tr>
+			</thead>
+			<tbody   >
+				<tr th:each="contact,iterStat : ${docgia.listPhieumuon}">
+					<td th:text="${iterStat.count}"></td>
+					<td th:text="${contact.maphieu}"></td>
+					<td th:text="${contact.tenphieu}"></td>
+					<td th:text="${contact.loai}"></td>
+					
+				</tr>
+				
+			</tbody>
+  			</table>
+    </div>
+    
+    
+   	<footer th:replace="layout :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+    <nav th:replace="layout :: header"></nav>
+
+    <div class="container main-content form">
+        <div class="row">
+          <form action="#" th:action="@{/sach/savebansao}"  method="POST" novalidate="novalidate">
+		    
+		   <h1 align="center"> <a th:text= "${sach.tensach}"></a></h1>
+		   <input type="hidden"  name ="masach" th:value="${sach.masach}">
+		    <div class="form-group">
+		    	<label>Số lượng bản sao - (Min 1 - Max 100)</label><br>
+		    	<input class="form-control input-number" type="number" name = "soluong" value="1" min="1" max="100" >
+		    
+		    </div>
+		    
+		    <div >
+		    	<label>Phiên bản</label>
+		    	<input class="form-control" type="number" name = "phienban">
+		    </div>
+		    
+		    <div >
+		    	<label>Giá sách</label>
+		    	<input class="form-control" type="number" name = "giasach">
+		    </div>
+		    
+		    <div class="radio">
+		    	<label>Nhà Xuất bản</label>
+		    	<ul>
+		    		<li th:each="nxb :${listnxb}">
+		    			<input type="radio" name ="manxb" th:value = "${nxb.manxb}">
+		    				<label th:text="${nxb.tennxb}"></label>
+		    		</li>
+		    	</ul>
+		    </div>
+		    <div class="checkbox">
+		    	<label>Tác giả</label>
+		    	<ul>
+		    		<li th:each="tacgia :${listtacgia}">
+		    			<input type="checkbox" name ="matacgia" th:value = "${tacgia.matacgia}">
+		    				<label th:text="${tacgia.tentacgia}"></label>
+		    		</li>
+		    	</ul>
+		    </div>
+		    
+		    
+		    
+		    
+		    <button type="submit" class="btn btn-primary">Lưu</button>
+		</form>
+        </div>
+    </div><!-- /.container -->
+
+    <footer th:replace="layout :: footer"></footer>
+</body>
+</html>

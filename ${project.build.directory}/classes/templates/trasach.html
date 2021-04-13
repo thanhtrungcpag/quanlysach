@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+    <nav th:replace="layout :: header"></nav>
+     <div class="container main-content form">
+   	 <h1 align="center"><a th:text="${docgia.tenho}"></a></h1> 
+     <h3 th:text="'Mã độc giả: '+${docgia.madocgia}"></h3>
+         <form action="#" th:action="@{/docgia/trasach/save}"  method="POST" novalidate="novalidate">
+         <input type="hidden" name = "madocgia" th:value="${docgia.madocgia}">
+         <h3 align="center">Trả sách</h3>
+	      <div class="checkbox">
+			    	
+			    	<ul>
+			    		<li>
+			    			<table class="table table-bordered table-hover">
+				    			<thead>
+									<tr>
+										<td>Chọn phiếu</td>
+										<th>Phiếu</th>
+										<th>Loại</th>
+										<th>Tên sách</th>
+									</tr>
+								</thead>
+								<tbody th:each="phieumuon :${docgia.listPhieumuon}"  >
+	<!-- 								 -->
+									<tr >
+										
+										<td><input type="checkbox" name ="listphieumuon" th:value="${phieumuon.maphieu}"></td>
+										<td th:text="${phieumuon.tenphieu}"></td>
+										<td th:text="${phieumuon.loai}"></td>	
+										
+										<td>
+											<table class="table table-bordered table-hover">
+												<tbody th:each="bansao :${phieumuon.listMuon}">
+													<tr>
+														
+														<td> <input th:if="${!bansao.tinhtrang}" type="checkbox" name="mabansao" th:value="${bansao.bansao.mabansao}"> 
+													
+														
+														</td>
+														<td th:text="${bansao.bansao.mabansao}"></td> 
+														<td th:text="${bansao.bansao.sach.tensach}"></td>
+													</tr>
+													
+												</tbody>
+											</table>
+										
+										</td>
+									</tr>
+									
+								</tbody>
+			    			</table>
+		    		</li>
+		    	</ul>
+		    </div>
+		     <button type="submit" class="btn btn-primary" >Lưu</button>
+		   </form>
+     
+    </div>
+    
+    
+   	<footer th:replace="layout :: footer"></footer>
+</body>
+</html>

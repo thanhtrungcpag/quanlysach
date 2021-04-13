@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+    <nav th:replace="layout :: header"></nav>
+
+    <div class="container main-content form">
+        <div class="row">
+          <form action="#" th:action="@{/loaisach/save}" th:object="${loaisach}"
+		    method="POST" novalidate="novalidate">
+		    <input type="hidden" th:field="*{maloai}" />
+		    <div class="form-group">
+		        <label>Tên Loại Sách</label> 
+		        <input type="text" class="form-control"
+		            th:field="*{tenloai}" /> 
+		    </div>
+		    <button type="submit" class="btn btn-primary">Lưu</button>
+		</form>
+        </div>
+    </div><!-- /.container -->
+
+    <footer th:replace="layout :: footer"></footer>
+</body>
+</html>

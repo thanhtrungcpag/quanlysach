@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+	<nav th:replace="layout :: header"></nav>
+
+	<div class="container main-content list">
+		<div th:if="${success}"
+			class="row alert alert-success alert-dismissible">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+			<span th:text="${success}"></span>
+		</div>
+		<div class="row">
+		
+			<form class="form-inline pull-right" action="#"
+				th:action="@{/bansao/search}" method="GET">
+				<div class="form-group">
+					<input type="text" class="form-control" name="search"
+						placeholder="Tên sách" />
+				</div>
+				<button type="submit" class="btn btn-primary">Tìm kiếm sách</button>
+			</form>
+		</div>
+		<th:block th:if="${#lists.isEmpty(listbansao)}">
+			<h3>Không có Sách không có bản sao</h3>
+		</th:block>
+
+		<th:block th:unless="${#lists.isEmpty(listbansao)}">
+			<div class="row">
+				<table class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<th>STT</th>
+							<th>Mã Bản Sao</th>
+							<th>Tên sách</th>
+							<th>Tác giả</th>
+							<th>Phiên bản</th>
+							<th>Giá</th>
+							<th>Nhà xuất bản</th>
+						<!-- 	<th>Nhà Xuất Bản</th> -->
+							<th>Mượn</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="contact,iterStat : ${listbansao}">
+							<td th:text="${iterStat.count}"></td>
+							<td th:text="${contact.mabansao}"></td>
+							<td th:text="${contact.sach.tensach}"></td>
+							<td>
+							 	<ul style="list-style-type: none;">
+							 		<li th:each="listtacgia : ${contact.listTacGia}">
+							 			<a th:text="${listtacgia.tentacgia}"></a>
+							 		</li>
+							 	</ul>
+							 
+			 				</td>
+			 				
+			 				<td>
+								<ul style="list-style-type: none;">
+									<li th:each="listnxb : ${contact.listNXBinBanSao}">
+										<a th:text="${listnxb.phienban}"></a>
+									</li>
+								</ul>
+							</td>
+			 				
+			 				<td>
+								<ul style="list-style-type: none;">
+									<li th:each="listnxb : ${contact.listNXBinBanSao}">
+										<a th:text="${listnxb.gia}"></a>
+									</li>
+								</ul>
+							</td>
+			 				
+							<td>
+								<ul style="list-style-type: none;">
+									<li th:each="listnxb : ${contact.listNXBinBanSao}">
+										<a th:text="${listnxb.nhaxuatban.tennxb}"></a>
+									</li>
+								</ul>
+							</td> 
+							<td th:if="${contact.tinhtrang}" >Đã được mượn</td>
+							<td th:unless="${contact.tinhtrang}">
+							<a th:href="@{/bansao/{mabansao}/muon(mabansao=${contact.mabansao})}"><span
+									class="glyphicon glyphicon-book"></span></a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</th:block>
+	</div>
+	<!-- /.container -->
+
+	<footer th:replace="layout :: footer"></footer>
+</body>
+</html>

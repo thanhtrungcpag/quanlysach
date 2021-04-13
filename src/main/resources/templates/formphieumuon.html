@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+    <nav th:replace="layout :: header"></nav>
+
+	 
+
+    <div class="container main-content form">
+        <div class="row">
+          <form action="#" th:action="@{/phieumuon/save}"  method="POST" novalidate="novalidate">
+		   	 <h1 align="center"> <a th:text= "${docgia.tenho}"></a></h1>
+		     <input type="hidden"  name ="madocgia" th:value="${docgia.madocgia}">
+		     
+		     <h3>ngày mượn: <a th:text= "${ngay}"></a></h3>
+		     <input type="hidden"  name ="ngaymuon" th:value="${ngay}">
+		     <h3>ngày trả: <input type="date"  name ="ngaytra" th:value="${ngay}"></h3>
+		     <h3>Tên Phiếu: <input type="text"  name ="tenphieu" th:value="${docgia.tenho}+${docgia.madocgia}"></h3>
+		     <h3>Loại Phiếu: <input type="text" name = "loaiphieu" th:value="A"></h3>
+		    <div class="checkbox">
+		    	<label >Mượn sách</label>
+		    	<ul >
+		    		<li   >
+		    			
+		    				<!-- <label th:text="'mã bản sao: '+${bansao.mabansao} +' '+ ${bansao.sach.tensach}"></label> -->
+		    		
+			    			<table class="table table-bordered table-hover">
+				    			<thead>
+									<tr>
+										<th>Chọn</th>
+										<th>Mã sách</th>
+										<th>Tên sách</th>
+										<th>Tình trạng</th>
+									</tr>
+								</thead>
+								<tbody th:each="bansao :${listbansao}"  >
+									<tr >
+										<td> <input th:if="${!bansao.tinhtrang}"  type="checkbox" name ="mabansao" th:value = "${bansao.mabansao}"></td>
+										<td th:text="${bansao.mabansao}"></td>
+										<td th:text="${bansao.sach.tensach}"></td>	
+										<td th:if="${bansao.tinhtrang}" >Đã được mượn</td>
+										<td th:unless="${bansao.tinhtrang}">
+										<a ><span class="glyphicon glyphicon-book"></span></a></td>
+									</tr>
+									
+								</tbody>
+			    			</table>
+		    		</li>
+		    	</ul>
+		    </div>
+		    
+		    
+		    
+		    <button type="submit" class="btn btn-primary" >Lưu</button>
+		</form>
+        </div>
+    </div><!-- /.container -->
+
+    <footer th:replace="layout :: footer"></footer>
+</body>
+</html>

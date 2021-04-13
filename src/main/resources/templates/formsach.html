@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+    <nav th:replace="layout :: header"></nav>
+
+    <div class="container main-content form">
+        <div class="row">
+          <form action="#" th:action="@{/sach/save}" th:object="${sach}"
+		    method="POST" novalidate="novalidate">
+		    <input type="hidden" th:field="*{masach}" />
+		    <div class="form-group">
+		        <label>Tên Sách</label> 
+		        <input type="text" class="form-control"
+		            th:field="*{tensach}" /> 
+		    </div>
+		    <div class="form-group">
+		    	<label>Loại Sách</label>
+		    	<ul>
+		    		<li  th:each= "loai : ${listloai}" >
+		    			<input type="checkbox" name="loais" th:value = "${loai.maloai}" >
+		    			  <label th:text="${loai.tenloai}"></label>
+		    				
+		    		</li>
+		    	</ul>
+		    </div> 
+		    <button type="submit" class="btn btn-primary">Lưu</button>
+		</form>
+        </div>
+    </div><!-- /.container -->
+
+    <footer th:replace="layout :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+    <nav th:replace="layout :: header"></nav>
+
+    <div class="container main-content form">
+        <div class="row">
+          <form action="#" th:action="@{/nxb/save}" th:object="${nxb}"
+		    method="POST" novalidate="novalidate">
+		    <input type="hidden" th:field="*{manxb}" />
+		    <div class="form-group">
+		        <label>Tên Nhà Xuất Bản</label> 
+		        <input type="text" class="form-control"
+		            th:field="*{tennxb}" /> 
+		    </div>
+		    <button type="submit" class="btn btn-primary">Lưu</button>
+		</form>
+        </div>
+    </div><!-- /.container -->
+
+    <footer th:replace="layout :: footer"></footer>
+</body>
+</html>

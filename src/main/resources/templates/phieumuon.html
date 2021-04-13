@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+	<nav th:replace="layout :: header"></nav>
+
+	<div class="container main-content list">
+		<div th:if="${success}"
+			class="row alert alert-success alert-dismissible">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+			<span th:text="${success}"></span>
+		</div>
+		<div class="row">
+			<form class="form-inline pull-right" action="#"
+				th:action="@{/phieumuon/search}" method="GET">
+				<div class="form-group">
+					<input type="text" class="form-control" name="search"
+						placeholder="mã phiếu mượn" />
+				</div>
+				<button type="submit" class="btn btn-primary">Search</button>
+			</form>
+		</div>
+		<th:block th:if="${#lists.isEmpty(listphieumuon)}">
+			<h3>Không có phiếu mượn nào</h3>
+		</th:block>
+
+		<th:block th:unless="${#lists.isEmpty(listphieumuon)}">
+			<div class="row">
+				<table class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<th>STT</th>
+							<th>mã phiếu mượn</th>
+							<th>Tên phiếu mượn</th>
+							<th>Loại phiếu mượn</th>
+							<th>Chi tiết phiếu mượn</th>
+							<th>chỉnh sửa</th>
+							<th>Xóa</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="contact,iterStat : ${listphieumuon}">
+							<td th:text="${iterStat.count}"></td>
+							<td th:text="${contact.maphieu}"></td>
+							<td th:text="${contact.tenphieu}"></td>
+							<td th:text="${contact.loai}"></td>
+							<td><a th:href="@{/phieumuon/{maphieu}/chitietphieumuon(maphieu=${contact.maphieu})}"><span
+									class="glyphicon glyphicon-list-alt"></span></a></td>
+							<td><a th:href="@{/phieumuon/{maphieu}/edit(maphieu=${contact.maphieu})}"><span
+									class="glyphicon glyphicon-pencil"></span></a></td>
+							<td><a th:href="@{/phieumuon/{maphieu}/delete(maphieu=${contact.maphieu})}"><span
+									class="glyphicon glyphicon-trash"></span></a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</th:block>
+	</div>
+	<!-- /.container -->
+
+	<footer th:replace="layout :: footer"></footer>
+</body>
+</html>

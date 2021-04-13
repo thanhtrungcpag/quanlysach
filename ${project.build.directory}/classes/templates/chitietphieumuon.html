@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+    <nav th:replace="layout :: header"></nav>
+     <div class="container main-content form">
+   	<h1 align="center"><a th:text="${phieumuon.tenphieu}"></a></h1> 
+     <h3 th:text="'Mã độc giả: '+${phieumuon.docgia.madocgia}"></h3>
+    	 <h3 th:text="'Tên độc giả:  '+${phieumuon.docgia.tenho}"></h3>
+    	 <h3 th:text="'Số lượng bản sao đã mượn trong phiếu: ' + ${#lists.size(phieumuon.listMuon)}"></h3>
+    	 
+    	 <table class="table table-bordered table-hover">
+   			<thead>
+				<tr>
+					<th>STT</th>
+					<th>Mã Bản sao</th>
+					<th>Tên sách</th>
+					<th>thời gian mượn</th>
+					<th>thời gian trả</th>
+			
+				</tr>
+			</thead>
+			<tbody   >
+				<tr th:each="contact,iterStat : ${phieumuon.listMuon}">
+					<td th:text="${iterStat.count}"></td>
+					<td th:text="${contact.bansao.mabansao}"></td>
+					<td th:text="${contact.bansao.sach.tensach}"></td>
+					<td th:text="${contact.ngaymuon}"></td>
+					<td th:text="${contact.ngaytra}"></td>
+					
+				</tr>
+				
+			</tbody>
+  			</table>
+    </div>
+    
+    
+   	<footer th:replace="layout :: footer"></footer>
+</body>
+</html>

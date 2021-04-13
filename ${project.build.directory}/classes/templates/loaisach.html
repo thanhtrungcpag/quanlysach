@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+	<nav th:replace="layout :: header"></nav>
+
+	<div class="container main-content list">
+		<div th:if="${success}"
+			class="row alert alert-success alert-dismissible">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+			<span th:text="${success}"></span>
+		</div>
+		<div class="row">
+			<a th:href="@{/loaisach/create}" class="btn btn-success pull-left">
+				<span class="glyphicon glyphicon-plus"></span>Thêm Loại Sách
+			</a>
+			<form class="form-inline pull-right" action="#"
+				th:action="@{/loaisach/search}" method="GET">
+				<div class="form-group">
+					<input type="text" class="form-control" name="loaisachsearch"
+						placeholder="Loại sách" />
+				</div>
+				<button type="submit" class="btn btn-primary">Tìm kiếm Thể loại</button>
+			</form>
+		</div>
+		<th:block th:if="${#lists.isEmpty(listloaisach)}">
+			<h3>Không Thể loại sách</h3>
+		</th:block>
+
+		<th:block th:unless="${#lists.isEmpty(listloaisach)}">
+			<div class="row">
+				<table class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<th>STT</th>
+							<th>Thể loại sách</th>
+							<th>chỉnh sửa</th>
+							<th>Xóa</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="contact,iterStat : ${listloaisach}">
+							<td th:text="${iterStat.count}"></td>
+							<td th:text="${contact.tenloai}"></td>
+							<td><a th:href="@{/loaisach/{maloai}/edit(maloai=${contact.maloai})}"><span
+									class="glyphicon glyphicon-pencil"></span></a></td>
+							<td><a th:href="@{/loaisach/{maloai}/delete(maloai=${contact.maloai})}"><span
+									class="glyphicon glyphicon-trash"></span></a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</th:block>
+	</div>
+	<!-- /.container -->
+
+	<footer th:replace="layout :: footer"></footer>
+</body>
+</html>

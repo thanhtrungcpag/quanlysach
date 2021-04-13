@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+	<nav th:replace="layout :: header"></nav>
+
+	<div class="container main-content list">
+		<div th:if="${success}"
+			class="row alert alert-success alert-dismissible">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+			<span th:text="${success}"></span>
+		</div>
+		<div class="row">
+			<a th:href="@{/docgia/create}" class="btn btn-success pull-left">
+				<span class="glyphicon glyphicon-plus"></span>Thêm độc giả
+			</a>
+			<form class="form-inline pull-right" action="#"
+				th:action="@{/docgia/search}" method="GET">
+				<div class="form-group">
+					<input type="text" class="form-control" name="search"
+						placeholder="Độc giả" />
+				</div>
+				<button type="submit" class="btn btn-primary">Search</button>
+			</form>
+		</div>
+		<th:block th:if="${#lists.isEmpty(listdocgia)}">
+			<h3>Không có độc giả nào</h3>
+		</th:block>
+
+		<th:block th:unless="${#lists.isEmpty(listdocgia)}">
+			<div class="row">
+				<table class="table table-bordered table-hover" >
+					<thead>
+						<tr>
+							<th>STT</th>
+							<th>Tên</th>
+							<th>Lớp</th>
+							<th>Email</th>
+							<th>Chi tiết</th>
+							<th>Mượn Sách|Trả sách</th>
+							<th>chỉnh sửa</th>
+							<th>Xóa</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="contact,iterStat : ${listdocgia}">
+							<td th:text="${iterStat.count}"></td>
+							<td th:text="${contact.tenho}"></td>
+							<td th:text="${contact.lop}"></td>
+							<td th:text="${contact.email}"></td>
+							<td><a th:href="@{/docgia/{madocgia}/chitiet(madocgia=${contact.madocgia})}"><span
+										class="glyphicon glyphicon-list-alt"></span></a>
+										</td>
+							<td>
+								<table  class="table table-bordered table-hover" style="margin-top: 0px">
+									<tr>
+										
+										<td><a th:href="@{/phieumuon/{madocgia}/create(madocgia=${contact.madocgia})}"><span
+												class="glyphicon glyphicon-book"></span></a></td>
+										<td><a th:href="@{/docgia/{madocgia}/trasach(madocgia=${contact.madocgia})}"><span
+										class="glyphicon glyphicon-list-alt"></span></a></td>
+									</tr>
+								</table>
+							</td>
+							
+							
+								
+							<td><a th:href="@{/docgia/{madocgia}/edit(madocgia=${contact.madocgia})}"><span
+									class="glyphicon glyphicon-pencil"></span></a></td>
+							<td><a th:href="@{/docgia/{madocgia}/delete(madocgia=${contact.madocgia})}"><span
+									class="glyphicon glyphicon-trash"></span></a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</th:block>
+	</div>
+	<!-- /.container -->
+
+	<footer th:replace="layout :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+	<nav th:replace="layout :: header"></nav>
+
+	<div class="container main-content list">
+		<div th:if="${success}"
+			class="row alert alert-success alert-dismissible">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+			<span th:text="${success}"></span>
+		</div>
+		<div class="row">
+			<a th:href="@{/sach/create}" class="btn btn-success pull-left">
+				<span class="glyphicon glyphicon-plus"></span>Thêm Sách
+			</a>
+			<form class="form-inline pull-right" action="#"
+				th:action="@{/sach/search}" method="GET">
+				<div class="form-group">
+					<input type="text" class="form-control" name="sachsearch"
+						placeholder="Sách" />
+				</div>
+				<button type="submit" class="btn btn-primary">Tìm kiếm Sách</button>
+			</form>
+		</div>
+		<th:block th:if="${#lists.isEmpty(listsach)}">
+			<h3>Không có Sách</h3>
+		</th:block>
+
+		<th:block th:unless="${#lists.isEmpty(listsach)}">
+			<div class="row">
+				<table class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<th>STT</th>
+							<th>Sách</th>
+							<th>Số lượng bản sao</th> 
+							<th>Thể loại</th> 
+							<th>chỉnh sửa</th>
+							<th>Thêm Bản Sao</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="contact,iterStat : ${listsach}">
+							<td th:text="${iterStat.count}"></td>
+							<td th:text="${contact.tensach}"></td>
+							<td th:text="${#lists.size(contact.listBansao)}"></td> 
+							<td  >
+								<ul style="list-style-type: none;">
+									<li th:each="listloaisach : ${contact.listLoaisach}" >
+										<a th:text="${listloaisach.tenloai}"></a>
+									</li>
+								</ul>
+							
+							</td>
+							<td><a th:href="@{/sach/{masach}/edit(masach=${contact.masach})}"><span
+									class="glyphicon glyphicon-pencil"></span></a></td>
+							<td><a th:href="@{/sach/{masach}/thembansao(masach=${contact.masach})}"><span
+									class="	glyphicon glyphicon-duplicate"></span></a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</th:block>
+	</div>
+	<!-- /.container -->
+
+	<footer th:replace="layout :: footer"></footer>
+</body>
+</html>
